@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Vehicle Insurance</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="isLoggedIn && userRole === 'ROLE_USER'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/proposals">Proposals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/documents">Documents</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/quotes">Quotes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/payments">Payments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/policies">Policies</a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn && userRole === 'ROLE_OFFICER'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/proposals">Proposals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/documents">Documents</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/quotes">Quotes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/payments">Payments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/officer/policies">Policies</a>
+          </li>
+        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/auth/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

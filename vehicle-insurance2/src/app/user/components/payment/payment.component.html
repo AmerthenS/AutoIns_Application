@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <h1>Payment Management</h1>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- Fetch Payment Section -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Fetch Payment by ID</div>
+        <div class="card-body">
+          <form [formGroup]="paymentForm" (ngSubmit)="fetchPaymentById()">
+            <div class="mb-3">
+              <label for="paymentId" class="form-label">Payment ID</label>
+              <input
+                type="number"
+                class="form-control"
+                id="paymentId"
+                formControlName="paymentId"
+                [class.is-invalid]="paymentForm.get('paymentId')?.invalid && paymentForm.get('paymentId')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="paymentForm.get('paymentId')?.hasError('required')">Payment ID is required.</div>
+              <div class="invalid-feedback" *ngIf="paymentForm.get('paymentId')?.hasError('min')">Payment ID must be positive.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="paymentForm.invalid">Fetch Payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Payment Section -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Create New Payment</div>
+        <div class="card-body">
+          <form [formGroup]="createPaymentForm" (ngSubmit)="createPayment()">
+            <div class="mb-3">
+              <label for="quoteId" class="form-label">Quote ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="quoteId"
+                formControlName="quoteId"
+                [class.is-invalid]="createPaymentForm.get('quoteId')?.invalid && createPaymentForm.get('quoteId')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="createPaymentForm.get('quoteId')?.hasError('required')">Quote ID is required.</div>
+              <div class="invalid-feedback" *ngIf="createPaymentForm.get('quoteId')?.hasError('pattern')">Quote ID must be a number.</div>
+            </div>
+            <div class="mb-3">
+              <label for="paymentStatus" class="form-label">Payment Status</label>
+              <select
+                class="form-control"
+                id="paymentStatus"
+                formControlName="paymentStatus"
+                [class.is-invalid]="createPaymentForm.get('paymentStatus')?.invalid && createPaymentForm.get('paymentStatus')?.touched"
+              >
+                <option [value]="true">Paid</option>
+                <option [value]="false">Pending</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="createPaymentForm.get('paymentStatus')?.hasError('required')">Payment status is required.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="createPaymentForm.invalid">Create Payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display Payment Details -->
+  <div class="row" *ngIf="payment">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Payment Details</div>
+        <div class="card-body">
+          <p><strong>ID:</strong> {{ payment.id }}</p>
+          <p><strong>Quote ID:</strong> {{ payment.quoteId }}</p>
+          <p><strong>Status:</strong> {{ payment.paymentStatus ? 'Paid' : 'Pending' }}</p>
+          <p><strong>Paid On:</strong> {{ payment.paidOn || 'N/A' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

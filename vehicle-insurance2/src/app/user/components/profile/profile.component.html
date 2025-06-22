@@ -1,0 +1,110 @@
+<div class="container mt-4">
+  <h1>Edit Profile</h1>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Profile Details</div>
+        <div class="card-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                [class.is-invalid]="profileForm.get('name')?.invalid && profileForm.get('name')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('name')?.hasError('required')">Name is required.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('name')?.hasError('minlength')">Name must be at least 2 characters.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('name')?.hasError('maxlength')">Name must be less than 100 characters.</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [class.is-invalid]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.hasError('required')">Email is required.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.hasError('email')">Invalid email format.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.hasError('maxlength')">Email must be less than 100 characters.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                [class.is-invalid]="profileForm.get('password')?.invalid && profileForm.get('password')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('password')?.hasError('required')">Password is required.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('password')?.hasError('minlength')">Password must be at least 8 characters.</div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('password')?.hasError('pattern')">Password must contain at least one special character.</div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                formControlName="address"
+                [class.is-invalid]="profileForm.get('address')?.invalid && profileForm.get('address')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('address')?.hasError('maxlength')">Address must be less than 255 characters.</div>
+            </div>
+            <div class="mb-3">
+              <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="aadhaarNumber"
+                formControlName="aadhaarNumber"
+                [class.is-invalid]="profileForm.get('aadhaarNumber')?.invalid && profileForm.get('aadhaarNumber')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('aadhaarNumber')?.hasError('pattern')">Aadhaar number must be 12 digits.</div>
+            </div>
+            <div class="mb-3">
+              <label for="panNumber" class="form-label">PAN Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="panNumber"
+                formControlName="panNumber"
+                [class.is-invalid]="profileForm.get('panNumber')?.invalid && profileForm.get('panNumber')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="profileForm.get('panNumber')?.hasError('pattern')">PAN number must be 5 letters, 4 digits, 1 letter.</div>
+            </div>
+            <div class="mb-3">
+              <label for="dob" class="form-label">Date of Birth</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dob"
+                formControlName="dob"
+              >
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select
+                class="form-control"
+                id="role"
+                formControlName="role"
+                [class.is-invalid]="profileForm.get('role')?.invalid && profileForm.get('role')?.touched"
+              >
+                <option value="ROLE_USER">User</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="profileForm.get('role')?.hasError('required')">Role is required.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Officer Dashboard</h2>
+  <div class="row" *ngIf="officer">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Profile</div>
+        <div class="card-body">
+          <p><strong>Name:</strong> {{ officer.name }}</p>
+          <p><strong>Email:</strong> {{ officer.email }}</p>
+          <a routerLink="/officer/profile" class="btn btn-primary">Edit Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Proposals</div>
+        <div class="card-body">
+          <p>{{ proposals.length }} proposal(s) pending</p>
+          <a routerLink="/officer/proposals" class="btn btn-primary">Manage Proposals</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Quotes</div>
+        <div class="card-body">
+          <p>{{ quotes.length }} quote(s) generated</p>
+          <a routerLink="/officer/quotes" class="btn btn-primary">Manage Quotes</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Payments</div>
+        <div class="card-body">
+          <p>{{ payments.length }} payment(s) processed</p>
+          <a routerLink="/officer/payments" class="btn btn-primary">View Payments</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Policies</div>
+        <div class="card-body">
+          <p>{{ policies.length }} active policy(ies)</p>
+          <a routerLink="/officer/policies" class="btn btn-primary">View Policies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

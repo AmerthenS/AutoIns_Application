@@ -1,0 +1,50 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Generate Quote</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">New Quote</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="proposalId" class="form-label">Proposal</label>
+              <select
+                id="proposalId"
+                class="form-control"
+                formControlName="proposalId"
+                [ngClass]="{'is-invalid': quoteForm.get('proposalId')?.touched && quoteForm.get('proposalId')?.invalid}"
+              >
+                <option value="">Select Proposal</option>
+                <option *ngFor="let proposal of proposals" [value]="proposal.id">Proposal #{{ proposal.id }} - {{ proposal.vehicleType }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="quoteForm.get('proposalId')?.hasError('required')">
+                Proposal is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                class="form-control"
+                formControlName="amount"
+                [ngClass]="{'is-invalid': quoteForm.get('amount')?.touched && quoteForm.get('amount')?.invalid}"
+              />
+              <div class="invalid-feedback" *ngIf="quoteForm.get('amount')?.hasError('required')">
+                Amount is required
+              </div>
+              <div class="invalid-feedback" *ngIf="quoteForm.get('amount')?.hasError('min')">
+                Amount must be positive
+              </div>
+            </div>
+            <div class="mb-3 text-success" *ngIf="successMessage">{{ successMessage }}</div>
+            <div class="mb-3 text-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="quoteForm.invalid">Generate Quote</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="container mt-4">
+  <h1>Activate Policies</h1>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- Create Policy Form -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Create New Policy</div>
+        <div class="card-body">
+          <form #policyForm="ngForm" (ngSubmit)="createPolicy()">
+            <div class="mb-3">
+              <label for="proposalId" class="form-label">Proposal ID</label>
+              <input
+                type="number"
+                class="form-control"
+                id="proposalId"
+                [(ngModel)]="newPolicy.proposalId"
+                name="proposalId"
+                required
+                [ngClass]="{'is-invalid': policyForm.submitted && policyForm.controls['proposalId'].invalid}"
+              >
+              <div class="invalid-feedback">Proposal ID is required</div>
+            </div>
+            <div class="mb-3">
+              <label for="policyNumber" class="form-label">Policy Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="policyNumber"
+                [(ngModel)]="newPolicy.policyNumber"
+                name="policyNumber"
+                required
+                [ngClass]="{'is-invalid': policyForm.submitted && policyForm.controls['policyNumber'].invalid}"
+              >
+              <div class="invalid-feedback">Policy Number is required</div>
+            </div>
+            <div class="mb-3">
+              <label for="startDate" class="form-label">Start Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="startDate"
+                [(ngModel)]="newPolicy.startDate"
+                name="startDate"
+                required
+                [ngClass]="{'is-invalid': policyForm.submitted && policyForm.controls['startDate'].invalid}"
+              >
+              <div class="invalid-feedback">Start Date is required</div>
+            </div>
+            <div class="mb-3">
+              <label for="endDate" class="form-label">End Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="endDate"
+                [(ngModel)]="newPolicy.endDate"
+                name="endDate"
+                required
+                [ngClass]="{'is-invalid': policyForm.submitted && policyForm.controls['endDate'].invalid}"
+              >
+              <div class="invalid-feedback">End Date is required</div>
+            </div>
+            <div class="mb-3">
+              <label for="pdfUrl" class="form-label">PDF URL (Optional)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="pdfUrl"
+                [(ngModel)]="newPolicy.pdfUrl"
+                name="pdfUrl"
+              >
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="policyForm.invalid">Create Policy</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing Policies -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">Policies</div>
+        <div class="card-body">
+          <table class="table table-striped" *ngIf="policies.length > 0">
+            <thead>
+              <tr>
+                <th>Policy ID</th>
+                <th>Proposal ID</th>
+                <th>Policy Number</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>PDF URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let policy of policies">
+                <td>{{ policy.id || 'N/A' }}</td>
+                <td>{{ policy.proposalId || 'N/A' }}</td>
+                <td>{{ policy.policyNumber }}</td>
+                <td>{{ policy.status || 'N/A' }}</td>
+                <td>{{ policy.startDate }}</td>
+                <td>{{ policy.endDate }}</td>
+                <td>{{ policy.pdfUrl || 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="policies.length === 0" class="alert alert-info">
+            No policies available.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

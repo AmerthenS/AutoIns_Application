@@ -1,0 +1,37 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Payment View</h2>
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">Payments</h3>
+    </div>
+    <div class="card-body">
+      <div class="text-danger mb-3" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Payment ID</th>
+              <th>Proposal ID</th>
+              <th>Quote ID</th>
+              <th>Vehicle Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Paid On</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of payments">
+              <td>{{ payment.id || 'N/A' }}</td>
+              <td>{{ getQuoteForPayment(payment)?.proposalId || 'N/A' }}</td>
+              <td>{{ payment.quoteId || 'N/A' }}</td>
+              <td>{{ getProposalForQuote(getQuoteForPayment(payment))?.vehicleType || 'N/A' }}</td>
+              <td>{{ getQuoteForPayment(payment)?.amount || 'N/A' }}</td>
+              <td>{{ payment.paymentStatus ? 'Paid' : 'Pending' }}</td>
+              <td>{{ payment.paidOn | date:'short' || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

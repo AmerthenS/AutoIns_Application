@@ -1,0 +1,70 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Submit Proposal</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">New Proposal</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="vehicleType" class="form-label">Vehicle Type</label>
+              <select
+                id="vehicleType"
+                class="form-control"
+                formControlName="vehicleType"
+                [ngClass]="{'is-invalid': proposalForm.get('vehicleType')?.touched && proposalForm.get('vehicleType')?.invalid}"
+              >
+                <option value="">Select Vehicle Type</option>
+                <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="proposalForm.get('vehicleType')?.hasError('required')">
+                Vehicle Type is required
+              </div>
+            </div>
+            <div class="mb-3 text-success" *ngIf="successMessage">{{ successMessage }}</div>
+            <div class="mb-3 text-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="proposalForm.invalid">Submit Proposal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Your Proposals</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Proposal ID</th>
+                  <th>Vehicle Type</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let proposal of proposals">
+                  <td>{{ proposal.id || 'N/A' }}</td>
+                  <td>{{ proposal.vehicleType || 'N/A' }}</td>
+                  <td>{{ proposal.status || 'N/A' }}</td>
+                  <td>{{ proposal.createdAt || 'N/A' }}</td>
+                  <td>{{ proposal.updatedAt || 'N/A' }}</td>
+                </tr>
+                <tr *ngIf="proposals.length === 0">
+                  <td colspan="5" class="text-center">No proposals submitted</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

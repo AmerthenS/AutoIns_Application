@@ -1,0 +1,112 @@
+<div class="container mt-4">
+  <h1>Dashboard</h1>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- User Details -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">User Details</div>
+        <div class="card-body" *ngIf="user">
+          <p><strong>Name:</strong> {{ user.name }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Address:</strong> {{ user.address || 'N/A' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fetch Payment by Quote ID -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Fetch Payment</div>
+        <div class="card-body">
+          <form (ngSubmit)="fetchPayment()">
+            <div class="mb-3">
+              <label for="quoteId" class="form-label">Quote ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="quoteId"
+                [(ngModel)]="quoteIdInput"
+                name="quoteId"
+                [ngModelOptions]="{standalone: true}"
+                required
+              >
+            </div>
+            <button type="submit" class="btn btn-primary">Fetch Payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payments -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">Payments</div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Quote ID</th>
+                <th>Status</th>
+                <th>Paid On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of payments">
+                <td>{{ payment.id }}</td>
+                <td>{{ payment.quoteId }}</td>
+                <td>{{ payment.paymentStatus ? 'Paid' : 'Pending' }}</td>
+                <td>{{ payment.paidOn || 'N/A' }}</td>
+                <td>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    *ngIf="!payment.paymentStatus"
+                    (click)="makePayment(payment)"
+                  >
+                    Make Payment
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proposals and Policies -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Proposals</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let proposal of proposals">
+              Proposal ID: {{ proposal.id }} - Status: {{ proposal.status }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Policies</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let policy of policies">
+              Policy ID: {{ policy.id }} - Status: {{ policy.status }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

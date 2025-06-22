@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Proposals</h2>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4" *ngFor="let proposal of proposals">
+        <div class="card-header bg-primary text-white">
+          Proposal #{{ proposal.id }} - {{ proposal.vehicleType }}
+        </div>
+        <div class="card-body">
+          <p><strong>User ID:</strong> {{ proposal.userId }}</p>
+          <p><strong>Status:</strong> {{ proposal.status }}</p>
+          <p><strong>Created At:</strong> {{ proposal.createdAt | date:'medium' }}</p>
+          <p><strong>Updated At:</strong> {{ proposal.updatedAt | date:'medium' }}</p>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Update Status
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'SUBMITTED')">SUBMITTED</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'DOCUMENTS_REQUESTED')">DOCUMENTS_REQUESTED</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'QUOTE_GENERATED')">QUOTE_GENERATED</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'PAYMENT_PENDING')">PAYMENT_PENDING</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'ACTIVE')">ACTIVE</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'REJECTED')">REJECTED</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(proposal.id!, 'EXPIRED')">EXPIRED</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p *ngIf="proposals.length === 0">No proposals available.</p>
+    </div>
+  </div>
+</div>

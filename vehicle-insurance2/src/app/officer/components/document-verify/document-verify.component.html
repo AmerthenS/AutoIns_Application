@@ -1,0 +1,61 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Verify Documents</h2>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4" *ngFor="let document of documents">
+        <div class="card-header bg-primary text-white">
+          Document #{{ document.id }} - {{ document.docType }}
+        </div>
+        <div class="card-body">
+          <p><strong>Proposal ID:</strong> {{ document.proposalId }}</p>
+          <p><strong>File URL:</strong> <a [href]="document.fileUrl" target="_blank">View</a></p>
+          <p><strong>Verified:</strong> {{ document.verified ? 'Yes' : 'No' }}</p>
+          <p><strong>Remarks:</strong> {{ document.remarks || 'None' }}</p>
+          <button class="btn btn-primary" (click)="selectDocument(document)">Verify</button>
+        </div>
+      </div>
+      <p *ngIf="documents.length === 0">No documents available.</p>
+    </div>
+    <div class="col-md-6" *ngIf="selectedDocument">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Verify Document #{{ selectedDocument.id }}</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="verified" class="form-label">Verification Status</label>
+              <select
+                id="verified"
+                class="form-control"
+                formControlName="verified"
+                [ngClass]="{'is-invalid': verifyForm.get('verified')?.touched && verifyForm.get('verified')?.invalid}"
+              >
+                <option [value]="true">Verified</option>
+                <option [value]="false">Not Verified</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="verifyForm.get('verified')?.hasError('required')">
+                Verification status is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="remarks" class="form-label">Remarks</label>
+              <textarea
+                id="remarks"
+                class="form-control"
+                formControlName="remarks"
+                [ngClass]="{'is-invalid': verifyForm.get('remarks')?.touched && verifyForm.get('remarks')?.invalid}"
+              ></textarea>
+              <div class="invalid-feedback" *ngIf="verifyForm.get('remarks')?.hasError('maxlength')">
+                Remarks cannot exceed 255 characters
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="verifyForm.invalid">Update Verification</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

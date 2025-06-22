@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar {
+  background-color: #007bff;
+}
+
+.navbar-brand, .nav-link {
+  color: #ffffff !important;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+  color: #e0e0e0 !important;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

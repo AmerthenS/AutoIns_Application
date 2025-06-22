@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2>View Quote</h2>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="proposalId" class="form-label">Enter Proposal ID:</label>
+      <input
+        type="number"
+        id="proposalId"
+        class="form-control"
+        [(ngModel)]="proposalId"
+        name="proposalId"
+        placeholder="e.g., 302"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Fetch Quote</button>
+  </form>
+  <div class="row mt-4" *ngIf="quote">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          Quote for Proposal #{{ quote.proposalId }}
+        </div>
+        <div class="card-body">
+          <p><strong>Quote ID:</strong> {{ quote.id }}</p>
+          <p><strong>Proposal ID:</strong> {{ quote.proposalId }}</p>
+          <p><strong>Amount:</strong> ${{ quote.amount.toFixed(2) }}</p>
+          <p><strong>Generated On:</strong> {{ quote.generatedOn | date:'medium' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

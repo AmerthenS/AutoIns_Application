@@ -1,0 +1,103 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Upload Document</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Upload Document</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="proposalId" class="form-label">Proposal</label>
+              <select
+                id="proposalId"
+                class="form-control"
+                formControlName="proposalId"
+                [ngClass]="{'is-invalid': documentForm.get('proposalId')?.touched && documentForm.get('proposalId')?.invalid}"
+              >
+                <option value="">Select Proposal</option>
+                <option *ngFor="let proposal of proposals" [value]="proposal.id">Proposal #{{ proposal.id }} - {{ proposal.vehicleType }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="documentForm.get('proposalId')?.hasError('required')">
+                Proposal is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="docType" class="form-label">Document Type</label>
+              <select
+                id="docType"
+                class="form-control"
+                formControlName="docType"
+                [ngClass]="{'is-invalid': documentForm.get('docType')?.touched && documentForm.get('docType')?.invalid}"
+              >
+                <option value="">Select Document Type</option>
+                <option *ngFor="let type of docTypes" [value]="type">{{ type }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="documentForm.get('docType')?.hasError('required')">
+                Document Type is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="fileUrl" class="form-label">Document URL</label>
+              <input
+                type="text"
+                id="fileUrl"
+                class="form-control"
+                formControlName="fileUrl"
+                [ngClass]="{'is-invalid': documentForm.get('fileUrl')?.touched && documentForm.get('fileUrl')?.invalid}"
+              />
+              <div class="invalid-feedback" *ngIf="documentForm.get('fileUrl')?.hasError('required')">
+                Document URL is required
+              </div>
+              <div class="invalid-feedback" *ngIf="documentForm.get('fileUrl')?.hasError('pattern')">
+                Please enter a valid URL
+              </div>
+            </div>
+            <div class="mb-3 text-success" *ngIf="successMessage">{{ successMessage }}</div>
+            <div class="mb-3 text-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="documentForm.invalid">Upload Document</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Uploaded Documents</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Document ID</th>
+                  <th>Proposal ID</th>
+                  <th>Document Type</th>
+                  <th>Document URL</th>
+                  <th>Verified</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let document of documents">
+                  <td>{{ document.id || 'N/A' }}</td>
+                  <td>{{ document.proposalId || 'N/A' }}</td>
+                  <td>{{ document.docType || 'N/A' }}</td>
+                  <td><a [href]="document.fileUrl" target="_blank">{{ document.fileUrl || 'N/A' }}</a></td>
+                  <td>{{ document.verified ? 'Yes' : 'No' }}</td>
+                  <td>{{ document.remarks || 'None' }}</td>
+                </tr>
+                <tr *ngIf="documents.length === 0">
+                  <td colspan="6" class="text-center">No documents uploaded</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

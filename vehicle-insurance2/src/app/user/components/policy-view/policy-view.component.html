@@ -1,0 +1,21 @@
+<div class="container">
+  <h2 class="mt-4 mb-4">Policies</h2>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4" *ngFor="let policy of policies">
+        <div class="card-header bg-primary text-white">
+          Policy #{{ policy.policyNumber }}
+        </div>
+        <div class="card-body">
+          <p><strong>Proposal ID:</strong> {{ policy.proposalId }}</p>
+          <p><strong>Start Date:</strong> {{ policy.startDate | date:'mediumDate' }}</p>
+          <p><strong>End Date:</strong> {{ policy.endDate | date:'mediumDate' }}</p>
+          <p><strong>Status:</strong> {{ policy.status }}</p>
+          <a *ngIf="policy.pdfUrl" [href]="policy.pdfUrl" target="_blank" class="btn btn-primary">View PDF</a>
+        </div>
+      </div>
+      <p *ngIf="policies.length === 0">No policies available.</p>
+    </div>
+  </div>
+</div>

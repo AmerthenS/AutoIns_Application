@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h1>User Registration</h1>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Register</div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" [class.is-invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+              <div class="invalid-feedback" *ngIf="registerForm.get('name')?.hasError('required')">Name is required.</div>
+              <div class="invalid-feedback" *ngIf="registerForm.get('name')?.hasError('minlength')">Name must be at least 2 characters.</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+              <div class="invalid-feedback" *ngIf="registerForm.get('email')?.hasError('required')">Email is required.</div>
+              <div class="invalid-feedback" *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+              <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('required')">Password is required.</div>
+              <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters.</div>
+              <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('pattern')">Password must contain at least one special character.</div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" formControlName="address">
+            </div>
+            <div class="mb-3">
+              <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
+              <input type="text" class="form-control" id="aadhaarNumber" formControlName="aadhaarNumber" [class.is-invalid]="registerForm.get('aadhaarNumber')?.invalid && registerForm.get('aadhaarNumber')?.touched">
+              <div class="invalid-feedback" *ngIf="registerForm.get('aadhaarNumber')?.hasError('required')">Aadhaar number is required.</div>
+              <div class="invalid-feedback" *ngIf="registerForm.get('aadhaarNumber')?.hasError('pattern')">Aadhaar number must be 12 digits.</div>
+            </div>
+            <div class="mb-3">
+              <label for="panNumber" class="form-label">PAN Number</label>
+              <input type="text" class="form-control" id="panNumber" formControlName="panNumber" [class.is-invalid]="registerForm.get('panNumber')?.invalid && registerForm.get('panNumber')?.touched">
+              <div class="invalid-feedback" *ngIf="registerForm.get('panNumber')?.hasError('pattern')">PAN number must be 5 letters, 4 digits, 1 letter.</div>
+            </div>
+            <div class="mb-3">
+              <label for="dob" class="form-label">Date of Birth</label>
+              <input type="date" class="form-control" id="dob" formControlName="dob">
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-control" id="role" formControlName="role">
+                <option value="ROLE_USER">User</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="registerForm.get('role')?.hasError('required')">Role is required.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

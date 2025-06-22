@@ -1,0 +1,17 @@
+.container {
+  padding: 20px;
+}
+.form-group {
+  max-width: 400px;
+}
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.alert {
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+.btn-primary {
+  margin-top: 10px;
+}
